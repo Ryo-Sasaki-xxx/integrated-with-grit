@@ -1,6 +1,6 @@
-GRANT ALL PRIVILEGES ON *.* TO 'django'@'%';
-FLUSH PRIVILEGES;
+-- GRANT ALL PRIVILEGES ON *.* TO 'django'@'%';
+-- FLUSH PRIVILEGES;
 
 -- if prod 
--- GRANT ALL PRIVILEGES ON *.* TO 'django-prod'@'%';
--- FLUSH PRIVILEGES;
+GRANT ALL PRIVILEGES ON *.* TO 'django-prod'@'%';
+FLUSH PRIVILEGES;
