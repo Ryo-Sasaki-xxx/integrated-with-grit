@@ -38,8 +38,8 @@ services:
       db:
         condition: service_healthy
     networks:
-      - backend_network
-
+      - backend_network 
+      
 volumes:
   db_data:
   static:

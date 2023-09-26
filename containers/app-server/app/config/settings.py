@@ -117,13 +117,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
-
-# 開発環境下で静的ファイルを参照する先
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] # 追加
+STATIC_URL = '/back_static/'
 
 # 本番環境で静的ファイルを参照する先
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # 追加
+STATIC_ROOT = os.path.join(BASE_DIR, 'static') # 追加
 
 # メディアファイルpath
 MEDIA_URL = '/media/' # 追加

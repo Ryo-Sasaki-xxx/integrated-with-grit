@@ -14,3 +14,6 @@ venv.bak/
 #django
 migrations/
 static/
+
+.DS_Store
+.gitignore

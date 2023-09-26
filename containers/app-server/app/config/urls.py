@@ -18,6 +18,6 @@ urlpatterns = [
     path('api/', include(router1.urls)),
     path('api/', include(router2.urls)),
     path('api/', include(router3.urls)),
-    path('api-auth/jwt/', jwt_views.TokenObtainPairView.as_view()),
-    path('api-auth/jwt/refresh', jwt_views.TokenRefreshView.as_view()),
+    path('api/auth-jwt/', jwt_views.TokenObtainPairView.as_view()),
+    path('api/auth-jwt/refresh', jwt_views.TokenRefreshView.as_view()),
 ]

@@ -27,7 +27,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./containers/app-server/app/:/code
-      - static:/static
+      - static:/code/static
     expose:
       - "8000"
     command: sh -c "/code/entrypoint.sh"
@@ -45,7 +45,7 @@ services:
       context: ./containers/nginx/
       dockerfile: Dockerfile
     volumes:
-      - static:/static
+      - static:/back_static
     ports:
       - "80:80"
     depends_on:
