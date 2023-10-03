@@ -11,3 +11,8 @@ class TaskPermission(permissions.BasePermission):
 class If_thenPermission(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         return obj.task.goal.user_id == request.user.id
+
+class UserPermission(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return obj.id == request.user.id
+        

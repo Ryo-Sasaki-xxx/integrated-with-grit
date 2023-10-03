@@ -3,19 +3,26 @@ from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
 from django_filters import rest_framework as filters
 
-from .models import Goal, Task, If_then
+from .models import Goal, Task, If_then, User, Help
 
-from .serializers import GoalSerializer, TaskSerializer, GoalTaskListSerializer, If_thenSerializer
+from .serializers import GoalSerializer, TaskSerializer, GoalTaskListSerializer, If_thenSerializer, UserSerializer, HelpSerializer
 
-from .custom_permission import GoalPermission,TaskPermission, If_thenPermission
+from .custom_permission import GoalPermission,TaskPermission, If_thenPermission, UserPermission
 from rest_framework import permissions
-
 
 
 class GoalViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin):
     queryset = Goal.objects.all()
     serializer_class = GoalSerializer
     permission_classes = (GoalPermission, permissions.IsAuthenticated,)
+
+    def get_serializer_context(self):
+        self.request.data["user"] = self.request.user.id
+        return {
+            'request': self.request,
+            'format': self.format_kwarg,
+            'view': self
+        }
 
 class TaskViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin):
     queryset = Task.objects.all()
@@ -43,3 +50,18 @@ class GoalTaskListAPIView(views.APIView):
             raise ValidationError(filterset.erros)
         serializer = GoalTaskListSerializer(instance=filterset.qs(request))
         return Response(serializer.data)
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (UserPermission, permissions.IsAuthenticated,)
+
+class SignInViewset(viewsets.GenericViewSet, mixins.CreateModelMixin,):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (permissions.AllowAny,)
+
+class HelpViewset(viewsets.GenericViewSet, mixins.CreateModelMixin,):
+    queryset = Help.objects.all()
+    serializer_class = HelpSerializer
+    permission_classes = (permissions.AllowAny,)

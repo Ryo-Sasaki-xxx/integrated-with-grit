@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
-from .models import User, Goal, Task, If_then
+from .models import User, Goal, Task, If_then, Help
 
 class MyUserChangeForm(UserChangeForm):
     class Meta:
@@ -37,3 +37,4 @@ admin.site.register(User, MyUserAdmin)
 admin.site.register(Goal)
 admin.site.register(Task)
 admin.site.register(If_then)
+admin.site.register(Help)

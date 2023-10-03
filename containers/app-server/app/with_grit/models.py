@@ -72,7 +72,7 @@ class Goal(models.Model):
     ]
     
     content = models.CharField(verbose_name='ゴールコンテント', max_length=200, )
-    status = models.IntegerField(verbose_name='状態', choices=status_list, default='work',)
+    status = models.IntegerField(verbose_name='状態', choices=status_list, default=1,)
     user = models.ForeignKey(User, verbose_name='ユーザー', on_delete=models.CASCADE,)
 
     def __str__ (self):
@@ -99,6 +99,19 @@ class If_then(models.Model):
 
     content = models.CharField(verbose_name='if-then ルール', max_length=200, )
     task = models.OneToOneField(Task, verbose_name='タスク名', on_delete=models.CASCADE,)
+
+    def __str__ (self):
+        return self.content
+
+class Help(models.Model):
+    class Meta:
+        db_table = 'help'
+        verbose_name = 'お問い合わせ'
+        verbose_name_plural = 'お問い合わせ'
+
+    content = models.TextField(verbose_name='お問い合わせ内容' )
+    name = models.CharField(verbose_name='お名前', max_length=200)
+    email = models.EmailField(verbose_name='メールアドレス')
 
     def __str__ (self):
         return self.content
