@@ -1,0 +1,49 @@
+version: "3.9"
+
+services:
+  db:
+    container_name: mysql
+    build:
+      context: ./containers/mysql/
+      dockerfile: Dockerfile
+    platform: linux/x86_64
+    volumes:
+      - db_data:/var/lib/mysql
+    env_file:
+      - ./containers/mysql/.env
+
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u$$MYSQL_USER -p$$MYSQL_PASSWORD
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    networks:
+      - backend_network
+
+  app:
+    container_name: app
+    build:
+      context: ./containers/app-server/
+      dockerfile: Dockerfile
+    volumes:
+      - ./containers/app-server/app/:/code
+      - static:/static
+    ports:
+      - "8000:8000"
+    command: sh -c "/code/entrypoint.sh"
+    env_file:
+      - ./containers/app-server/.env
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - backend_network 
+      
+volumes:
+  db_data:
+  static:
+
+networks:
+  backend_network:
+    driver: bridge

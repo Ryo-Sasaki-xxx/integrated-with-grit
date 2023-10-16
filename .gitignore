@@ -1,0 +1,18 @@
+# Environments
+.env
+# .env.prod
+.env.prod
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+・・・
+
+#django
+static/
+
+.DS_Store
+.gitignore
